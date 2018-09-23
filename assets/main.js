@@ -8,7 +8,7 @@ $(function() {
 //Define showInfo context for the table to pass to the Handlebars template in iframe.html
 function showInfo() {
   var requester_data = {
-    'name': 'Jane Doe',
+    'name': 'Dirk Diggler',
     'tags': ['tag1', 'tag2'],
     'created_at': 'November 20, 2014',
     'last_login_at': 'June 27, 2016'
