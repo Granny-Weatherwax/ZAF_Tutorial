@@ -1,0 +1,60 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Link to Bootstrap CSS and main.css file -->
+  <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+  <!-- Now that we're using Bootstrap CSS, Remove Zendesk Garden http://garden.zendesk.com
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@zendeskgarden/css-bedrock@7.0" type="text/css"> -->
+</head>
+<body>
+  <!-- Remove heading <h2 class="u-gamma">Hello, World!</h2> -->
+  <!-- Add content container -->
+  <div id="content"></div>
+  <footer>
+    <a href="https://mysite.github.io/support" target="_blank">Report bugs</a>
+  </footer>
+  <!-- Add handlebars template for the table of requester info -->
+  <script id="requester-template" type="text/x-handlebars-template">
+      <table>
+        <tr>
+          <td>Customer:</td>
+          <td class="data">{{name}}</td>
+        </tr>
+        {{#if tags}}
+        <tr>
+          <td>Tags:</td>
+          <td class="data">{{#each tags}}{{this}} {{/each}}</td>
+        </tr>
+        {{/if}}
+        <tr>
+          <td>Added:</td>
+          <td class="data">{{created_at}}</td>
+        </tr>
+        <tr>
+          <td>Last signed in:</td>
+          <td class="data">{{last_login_at}}</td>
+        </tr>
+      </table>
+    </script>
+  <!-- Add handlebars template for error messages -->
+  <script id="error-template" type="text/x-handlebars-template">
+    <p>{{status}} - {{statusText}} error. Please report a bug at the link below.</p>
+  </script>
+  <!-- https://github.com/zendesk/zendesk_app_framework_sdk -->
+  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+  <!-- Import jQuery -->
+  <script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Import the Handlebars library -->
+  <script src="https://cdn.jsdelivr.net/handlebarsjs/4.0.8/handlebars.min.js"></script>
+  <!-- Import the main.js file -->
+  <script type="text/javascript" src="main.js"></script>
+  <!-- Remove this code block now that we're using the main.js file instead
+  <script>
+    // Initialise the Zendesk JavaScript API client
+    // https://developer.zendesk.com/apps/docs/apps-v2
+    var client = ZAFClient.init();
+    client.invoke('resize', { width: '100%', height: '200px' });
+  </script> -->
+</body>
+</html>
