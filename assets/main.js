@@ -1,17 +1,39 @@
 $(function() {
   var client = ZAFClient.init();
   client.invoke('resize', { width: '100%', height: '120px' });
-  showInfo();
-  //showError();
+  //Get the requester ID from the ticket
+  client.get('ticket.requester.id').then(
+  function(data) {
+    var user_id = data['ticket.requester.id'];
+    requestUserInfo(client, user_id);
+  });
 });
 
+//Request json user data
+function requestUserInfo(client, id) {
+  var settings = {
+    url: '/api/v2/users/' + id + '.json', //using short url for Zendesk data
+    type:'GET',
+    dataType: 'json',
+  };
+
+  client.request(settings).then(
+    function(data) {
+      showInfo(data);
+    },
+    function(response) {
+      showError(response);
+    }
+  );
+}
+
 //Define showInfo context for the table to pass to the Handlebars template in iframe.html
-function showInfo() {
+function showInfo(data) {
   var requester_data = {
-    'name': 'Dirk Diggler',
-    'tags': ['tag1', 'tag2'],
-    'created_at': 'November 20, 2014',
-    'last_login_at': 'June 27, 2016'
+    'name': data.user.name,
+    'tags': data.user.tags,
+    'created_at': data.user.created_at,
+    'last_login_at': data.user.last_login_at
   };
 //Render html & pass data to the template in iframe.
   var source = $("#requester-template").html();
